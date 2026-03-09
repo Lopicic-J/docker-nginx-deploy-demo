@@ -1,0 +1,16 @@
+services:
+  app:
+    build: .
+    container_name: flask_app_demo
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx_demo
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app
